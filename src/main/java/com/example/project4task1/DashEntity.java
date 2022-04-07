@@ -1,33 +1,27 @@
 package com.example.project4task1;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  * @author
  * @version V1.0
  * @description
- * @date 2022/4/6 10:01 AM
+ * @date 2022/4/6 4:58 PM
  **/
-@NoArgsConstructor
+
 @Data
-public class ResultEntity {
-    private String _id;
+public class DashEntity {
+
+    private String dateTime;
     private String countryCode;
+    private String devices;
+    private String apiTime;
     private String country;
-    private String countryName;
-    private Double lat;
-    private Double lng;
     private Integer totalConfirmed;
     private Integer totalDeaths;
     private Integer totalRecovered;
     private Integer dailyConfirmed;
     private Integer dailyDeaths;
     private Integer activeCases;
-    private Integer totalCritical;
-    private Integer totalConfirmedPerMillionPopulation;
-    private Integer totalDeathsPerMillionPopulation;
-    private String fR;
-    private String pR;
     private String lastUpdated;
 }

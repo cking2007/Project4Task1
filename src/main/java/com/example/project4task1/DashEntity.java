@@ -12,16 +12,15 @@ import lombok.Data;
 @Data
 public class DashEntity {
 
-    private String dateTime;
+    private String searchTime;
     private String countryCode;
     private String devices;
     private String apiTime;
     private String country;
-    private Integer totalConfirmed;
-    private Integer totalDeaths;
-    private Integer totalRecovered;
-    private Integer dailyConfirmed;
-    private Integer dailyDeaths;
-    private Integer activeCases;
+    private Integer totalMiss;
+    private Integer totalFound;
+    private Integer totalConfirmed;;
     private String lastUpdated;
+
+    private String androidVersion;
 }

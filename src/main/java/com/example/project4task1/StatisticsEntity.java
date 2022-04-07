@@ -14,4 +14,5 @@ public class StatisticsEntity {
     private String _id;
     private String countryCode;
     private int searchCount;
+    private String lastSearchTime;
 }

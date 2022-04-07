@@ -16,18 +16,21 @@ public class ResultEntity {
     private String countryCode;
     private String country;
     private String countryName;
-    private Double lat;
-    private Double lng;
+    // private Integer totalConfirmed;
+    private Integer totalMiss;
+    // private Integer totalDeaths;
+    private Integer totalFound;
+    // private Integer totalRecovered;
     private Integer totalConfirmed;
-    private Integer totalDeaths;
-    private Integer totalRecovered;
-    private Integer dailyConfirmed;
-    private Integer dailyDeaths;
-    private Integer activeCases;
-    private Integer totalCritical;
-    private Integer totalConfirmedPerMillionPopulation;
-    private Integer totalDeathsPerMillionPopulation;
-    private String fR;
-    private String pR;
+    // private Integer dailyConfirmed;
+    // private Integer dailyDeaths;
+    // private Integer activeCases;
+    // private Integer totalCritical;
+    // private Integer totalConfirmedPerMillionPopulation;
+    private Integer totalFoundPerMillionPopulation;
+    // private Integer totalDeathsPerMillionPopulation;
+    private Integer totalMissPerMillionPopulation;
     private String lastUpdated;
+
+    private String flagURL;
 }

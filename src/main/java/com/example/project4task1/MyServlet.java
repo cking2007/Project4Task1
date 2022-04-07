@@ -42,8 +42,8 @@ public class MyServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String countryCode = req.getParameter("countryCode");
+        String androidVersion = req.getParameter("version");
         String devices = req.getHeader("User-agent");
-        String verion = req.getHeader("verion");
         String result = "";
         String responseString="";
 
@@ -126,7 +126,7 @@ public class MyServlet extends HttpServlet {
                             devices = "";
                         }
                         logger.info("reponse data :" + responseString);
-                        saveLog(t2 - t1, devices, String.valueOf(verion), responseString);
+                        saveLog(t2 - t1, devices, String.valueOf(androidVersion), responseString);
                     }
                 } else {
                     logger.info("cannot get data ");
@@ -146,7 +146,7 @@ public class MyServlet extends HttpServlet {
 
     }
 
-    public void saveLog(long timeMs, String devices, String androidversion, String result) {
+    public void saveLog(long timeMs, String devices, String androidVersion, String result) {
         ResponseEntity responseEntity = JSON.parseObject(result, ResponseEntity.class);
 
         DashEntity dashEntity = new DashEntity();
@@ -155,7 +155,7 @@ public class MyServlet extends HttpServlet {
         dashEntity.setDevices(devices);
         dashEntity.setApiTime(String.valueOf(timeMs));
         dashEntity.setCountry(responseEntity.getCountryName());
-        dashEntity.setAndroidVersion(androidversion);
+        dashEntity.setAndroidVersion(androidVersion);
         dashEntity.setLastUpdated(responseEntity.getLastUpdated());
         dashEntity.setTotalConfirmed(responseEntity.getTotalConfirmed());
         dashEntity.setTotalMiss(responseEntity.getTotalMiss());

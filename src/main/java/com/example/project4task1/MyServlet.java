@@ -45,6 +45,7 @@ public class MyServlet extends HttpServlet {
         String devices = req.getHeader("User-agent");
         String verion = req.getHeader("verion");
         String result = "";
+        String responseString="";
 
         if (StringUtils.hasLength(countryCode)) {
             long t1 = System.currentTimeMillis();
@@ -71,63 +72,70 @@ public class MyServlet extends HttpServlet {
 
 
                         ResultEntity resultEntity = JSON.parseObject(result, ResultEntity.class);
+                        ResponseEntity responseEntity = new ResponseEntity();
+
+
                         if (countryCode.equals("US")) {
-                            resultEntity.setFlagURL("https://img-pre.ivsky.com/img/tupian/pre/201010/06/meiguo.png");
+                            responseEntity.setFlagURL("https://img-pre.ivsky.com/img/tupian/pre/201010/06/meiguo.png");
                         } else if (countryCode.equals("IN")) {
-                            resultEntity.setFlagURL("https://img.ivsky.com/img/tupian/t/201010/06/yindu.png");
+                            responseEntity.setFlagURL("https://img.ivsky.com/img/tupian/t/201010/06/yindu.png");
                         } else if (countryCode.equals("BR")) {
-                            resultEntity.setFlagURL("https://img-pre.ivsky.com/img/tupian/pre/201010/06/baxi.png");
+                            responseEntity.setFlagURL("https://img-pre.ivsky.com/img/tupian/pre/201010/06/baxi.png");
                         } else if (countryCode.equals("FR")) {
-                            resultEntity.setFlagURL("https://img-pre.ivsky.com/img/tupian/pre/201010/06/faguo.png");
+                            responseEntity.setFlagURL("https://img-pre.ivsky.com/img/tupian/pre/201010/06/faguo.png");
                         } else if (countryCode.equals("DE")) {
-                            resultEntity.setFlagURL("https://img-pre.ivsky.com/img/tupian/pre/201010/06/deguo.png");
+                            responseEntity.setFlagURL("https://img-pre.ivsky.com/img/tupian/pre/201010/06/deguo.png");
                         } else if (countryCode.equals("GB")) {
-                            resultEntity.setFlagURL("https://img-pre.ivsky.com/img/tupian/pre/201010/06/yingguo.png");
+                            responseEntity.setFlagURL("https://img-pre.ivsky.com/img/tupian/pre/201010/06/yingguo.png");
                         } else if (countryCode.equals("RU")) {
-                            resultEntity.setFlagURL("https://img-pre.ivsky.com/img/tupian/pre/201010/06/eluosi.png");
+                            responseEntity.setFlagURL("https://img-pre.ivsky.com/img/tupian/pre/201010/06/eluosi.png");
                         } else if (countryCode.equals("IT")) {
-                            resultEntity.setFlagURL("https://img-pre.ivsky.com/img/tupian/pre/201010/06/yidali.png");
+                            responseEntity.setFlagURL("https://img-pre.ivsky.com/img/tupian/pre/201010/06/yidali.png");
                         } else if (countryCode.equals("TR")) {
-                            resultEntity.setFlagURL("https://img-pre.ivsky.com/img/tupian/pre/201010/06/tuerqi.png");
+                            responseEntity.setFlagURL("https://img-pre.ivsky.com/img/tupian/pre/201010/06/tuerqi.png");
                         } else if (countryCode.equals("CN")) {
-                            resultEntity.setFlagURL("https://img-pre.ivsky.com/img/tupian/pre/201010/06/zhongguo.png");
+                            responseEntity.setFlagURL("https://img-pre.ivsky.com/img/tupian/pre/201010/06/zhongguo.png");
                         } else {
-                            resultEntity.setFlagURL("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg-pre.ivsky.com%2Fimg%2Ftupian%2Fpre%2F201010%2F06%2Flianheguo.png&refer=http%3A%2F%2Fimg-pre.ivsky.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1651893373&t=ebdaae732079a4e26a9ad9787733ed12");
+                            responseEntity.setFlagURL("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg-pre.ivsky.com%2Fimg%2Ftupian%2Fpre%2F201010%2F06%2Flianheguo.png&refer=http%3A%2F%2Fimg-pre.ivsky.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1651893373&t=ebdaae732079a4e26a9ad9787733ed12");
                         }
 
-                        if (resultEntity.getTotalFound() == 0) {
-                            resultEntity.setTotalFound((int) (Math.random() * 1000));
+                        responseEntity.setCountryCode(resultEntity.getCountryCode());
+                        responseEntity.setCountryName(resultEntity.getCountry());
+
+                        if (resultEntity.getTotalDeaths() == 0) {
+                            responseEntity.setTotalFound((int) (Math.random() * 1000));
+                        } else {
+                            responseEntity.setTotalFound(resultEntity.getTotalDeaths());
                         }
-                        if (resultEntity.getTotalMiss() == 0) {
-                            resultEntity.setTotalMiss((int) (Math.random() * 1000));
-                        }
+
+
                         if (resultEntity.getTotalConfirmed() == 0) {
-                            resultEntity.setTotalConfirmed((int) (Math.random() * 1000));
+                            responseEntity.setTotalMiss((int) (Math.random() * 1000));
+                        } else {
+                            responseEntity.setTotalMiss(resultEntity.getTotalConfirmed());
                         }
-                        if (resultEntity.getTotalMissPerMillionPopulation() == 0) {
-                            resultEntity.setTotalMissPerMillionPopulation((int) (Math.random() * 100));
-                        }
-                        if (resultEntity.getTotalFoundPerMillionPopulation() == 0) {
-                            resultEntity.setTotalFoundPerMillionPopulation((int) (Math.random() * 100));
-                        }
-                        result = JSON.toJSONString(resultEntity);
+
+                        responseEntity.setTotalConfirmed((int) (Math.random() * 1000));
+                        responseEntity.setTotalMissPerMillionPopulation((int) (Math.random() * 100));
+                        responseEntity.setTotalFoundPerMillionPopulation((int) (Math.random() * 100));
+                        responseString = JSON.toJSONString(responseEntity);
 
 
                         long t2 = System.currentTimeMillis();
                         if (!StringUtils.hasLength(devices)) {
                             devices = "";
                         }
-                        logger.info("reponse data :" + result);
-                        saveLog(t2 - t1, devices, String.valueOf(verion), result);
+                        logger.info("reponse data :" + responseString);
+                        saveLog(t2 - t1, devices, String.valueOf(verion), responseString);
                     }
                 } else {
                     logger.info("cannot get data ");
                 }
             } catch (Exception e) {
-                logger.error("error :" + e.getMessage());
+                logger.error("error :" + e);
             }
         }
-        resp.getWriter().write(result);
+        resp.getWriter().write(responseString);
         resp.getWriter().flush();
         resp.getWriter().close();
 
@@ -139,23 +147,23 @@ public class MyServlet extends HttpServlet {
     }
 
     public void saveLog(long timeMs, String devices, String androidversion, String result) {
-        ResultEntity resultEntity = JSON.parseObject(result, ResultEntity.class);
+        ResponseEntity responseEntity = JSON.parseObject(result, ResponseEntity.class);
 
         DashEntity dashEntity = new DashEntity();
         dashEntity.setSearchTime(String.valueOf(LocalDateTime.now()));
-        dashEntity.setCountryCode(resultEntity.getCountryCode());
+        dashEntity.setCountryCode(responseEntity.getCountryCode());
         dashEntity.setDevices(devices);
         dashEntity.setApiTime(String.valueOf(timeMs));
-        dashEntity.setCountry(resultEntity.getCountry());
+        dashEntity.setCountry(responseEntity.getCountryName());
         dashEntity.setAndroidVersion(androidversion);
-        dashEntity.setLastUpdated(resultEntity.getLastUpdated());
-        dashEntity.setTotalConfirmed(resultEntity.getTotalConfirmed());
-        dashEntity.setTotalMiss(resultEntity.getTotalMiss());
-        dashEntity.setTotalFound(resultEntity.getTotalFound());
+        dashEntity.setLastUpdated(responseEntity.getLastUpdated());
+        dashEntity.setTotalConfirmed(responseEntity.getTotalConfirmed());
+        dashEntity.setTotalMiss(responseEntity.getTotalMiss());
+        dashEntity.setTotalFound(responseEntity.getTotalFound());
         mongoTemplate.insert(dashEntity, "dashBoard");
 
 
-        String countryCode = resultEntity.getCountryCode();
+        String countryCode = responseEntity.getCountryCode();
         Query query = new Query(Criteria.where("countryCode").is(countryCode));
 
         StatisticsEntity statisticsEntity = mongoTemplate.findOne(query, StatisticsEntity.class, "statistics");

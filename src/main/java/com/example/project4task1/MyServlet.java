@@ -126,7 +126,7 @@ public class MyServlet extends HttpServlet {
                             devices = "";
                         }
                         logger.info("reponse data :" + responseString);
-                        saveLog(t2 - t1, devices, String.valueOf(androidVersion), responseString);
+                        saveLog((int) (t2 - t1), devices, String.valueOf(androidVersion), responseString);
                     }
                 } else {
                     logger.info("cannot get data ");
@@ -146,14 +146,14 @@ public class MyServlet extends HttpServlet {
 
     }
 
-    public void saveLog(long timeMs, String devices, String androidVersion, String result) {
+    public void saveLog(int timeMs, String devices, String androidVersion, String result) {
         ResponseEntity responseEntity = JSON.parseObject(result, ResponseEntity.class);
 
         DashEntity dashEntity = new DashEntity();
         dashEntity.setSearchTime(String.valueOf(LocalDateTime.now()));
         dashEntity.setCountryCode(responseEntity.getCountryCode());
         dashEntity.setDevices(devices);
-        dashEntity.setApiTime(String.valueOf(timeMs));
+        dashEntity.setApiTime(timeMs);
         dashEntity.setCountry(responseEntity.getCountryName());
         dashEntity.setAndroidVersion(androidVersion);
         dashEntity.setLastUpdated(responseEntity.getLastUpdated());

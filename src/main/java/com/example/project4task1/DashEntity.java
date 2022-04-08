@@ -15,7 +15,7 @@ public class DashEntity {
     private String searchTime;
     private String countryCode;
     private String devices;
-    private String apiTime;
+    private Integer apiTime;
     private String country;
     private Integer totalMiss;
     private Integer totalFound;
